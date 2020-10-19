@@ -1,0 +1,60 @@
+class Main{
+
+    public static int maxInArray(int[] arr){
+    // 最初の要素に最大値を設定します。
+        int maxValue = arr[0];
+    // arrの中で最大値を探索します。
+        for (int i = 1; i < arr.length; i++){
+            if (arr[i] > maxValue){
+                maxValue = arr[i];
+            }
+        }
+        return maxValue;
+    }
+
+    // arr1の最大値がarr2よりも大きいかどうかを返します。
+    public static boolean hasLargerMax(int[] arrOp1, int[] arrOp2){
+    // arrOp1が空なら、Falseを返します。
+        if (arrOp1.length<=0){
+            return false;
+        }
+
+    // arrOp2が空で、arrOp1が空でない場合はTrueを返します。
+        if (arrOp2.length<=0){
+            return true;
+        }
+
+    // 最大値を取得します。
+        int arrOp1Max = maxInArray(arrOp1);
+        int arrOp2Max = maxInArray(arrOp2);
+        return arrOp1Max > arrOp2Max;
+    } 
+
+
+    public static int needleInHaystack(String[] haystack, String needle){
+        // 針を見つけるために、個々の要素を見ていきます。
+        // この検索は、O(n)の時間がかかります。
+        for (int i = 0; i < haystack.length; ++i) {
+            if(haystack[i] == needle){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public static void printAtIndex(int index, String[] words){
+        if (index >= 0 && index < words.length){
+            System.out.println("Printing: ->" + words[index] + "<- at index: " + index);
+        } else {
+            System.out.println("Index out of scope!");
+        }
+    }
+    public static void main(String[] args){
+        int[] arr1 = new int[]{23,43,2432,5464,3425,656,232};
+        int[] arr2 = new int[]{43,23,55,34};
+        int[] arr3 = new int[]{23,6464,43,54,6988};
+
+        System.out.println(hasLargerMax(arr1, arr2));
+        System.out.println(hasLargerMax(arr1, arr3));
+    }
+}
