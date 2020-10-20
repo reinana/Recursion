@@ -1,0 +1,62 @@
+import java.util.Map; // Mapライブラリーを読み込みます。
+import java.util.HashMap; // HashMapライブラリーを読み込みます。
+import java.util.Arrays;
+import java.util.ArrayList;
+
+
+class Main{
+    
+    public static void main(String[] args){
+        // デスクトップコンピュータには以下の部品があります マザーボード、CPU、RAM、GPU、ストレージ、電源
+        Map<String, Object> desktopComputer = new HashMap<String, Object>();
+        //マザーボード
+        desktopComputer.put("motherboard","AGUX 203-4344 Extreme");
+        //CPU
+        desktopComputer.put("CPU", "Fantel l9 extreme 16 core 4.5Ghz");
+        
+        //RAM
+        ArrayList<Map> map2 = new ArrayList<Map>();//Mapのリストを作る動的
+        desktopComputer.put("RAM", map2);//(key=RAM,value=map2)をput
+        //RAMリストの0番目
+        Map<String, Object> mapRAM0 = new HashMap<String,Object>();
+        mapRAM0.put("title", "Zolik DDR6 MegaHyper 32gb");
+        mapRAM0.put("sizeMb", 32000);
+        mapRAM0.put("clockSpeedMHz", 3000);
+        //RAMリストの1番目
+        Map<String, Object> mapRAM1 = new HashMap<String,Object>();
+        mapRAM1.put("title", "Zolik DDR6 MegaHyper 32gb");
+        mapRAM1.put("sizeMb", 32000);
+        mapRAM1.put("clockSpeedMHz", 3000);
+        //リストmap2に入れる
+        map2.add(mapRAM0);
+        map2.add(mapRAM1);
+
+        //strage      
+        ArrayList<Map> map3 = new ArrayList<Map>();//Mapのリストを作る動的
+        desktopComputer.put("storage", map3);//(key=storage,value=map3)をput
+        //strageリストの0番目
+        Map<String, Object> mapStrage0 = new HashMap<String,Object>();
+        mapStrage0.put("title", "Skygate ST3433 4TB HDD");
+        mapStrage0.put("sizeGb", 4000);
+        //strageリストの1番目
+        Map<String, Object> mapStrage1 = new HashMap<String,Object>();
+        mapStrage1.put("title", "Skygate ST3433 1TB HDD");
+        mapStrage1.put("sizeGb", 4000);
+        //リストmap3に入れる
+        map3.add(mapStrage0);
+        map3.add(mapStrage1);
+
+        //GPU    
+        desktopComputer.put("GPU","Livia jtx3400i");
+        //powerSupply
+        desktopComputer.put("powerSupply", "Fursair Platinum 1200W PSU DirectY 12GB VRAM");
+        
+        // 値を出力します。
+        System.out.println(map2);
+        System.out.println(desktopComputer);
+        System.out.println(desktopComputer.get("powerSupply"));
+        System.out.println(desktopComputer.get("storage"));
+        System.out.println(desktopComputer.get("GPU"));
+        System.out.println(desktopComputer.get("RAM"));
+     }
+}
