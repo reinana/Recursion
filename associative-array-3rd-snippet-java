@@ -8,14 +8,17 @@ class Main{
     
     public static void main(String[] args){
         // デスクトップコンピュータには以下の部品があります マザーボード、CPU、RAM、GPU、ストレージ、電源
+        //　<key,value>のHashMapを作ります
+        //数値も文字列も入れられるObjectをvalueにします
         Map<String, Object> desktopComputer = new HashMap<String, Object>();
+        //連想配列にkeyとvalueを入れます。put()関数を使います。
         //マザーボード
         desktopComputer.put("motherboard","AGUX 203-4344 Extreme");
         //CPU
         desktopComputer.put("CPU", "Fantel l9 extreme 16 core 4.5Ghz");
         
         //RAM
-        ArrayList<Map> map2 = new ArrayList<Map>();//Mapのリストを作る動的
+        ArrayList<Map> map2 = new ArrayList<Map>();//Mapが入っている動的配列のリストを作ります。
         desktopComputer.put("RAM", map2);//(key=RAM,value=map2)をput
         //RAMリストの0番目
         Map<String, Object> mapRAM0 = new HashMap<String,Object>();
@@ -32,7 +35,7 @@ class Main{
         map2.add(mapRAM1);
 
         //strage      
-        ArrayList<Map> map3 = new ArrayList<Map>();//Mapのリストを作る動的
+        ArrayList<Map> map3 = new ArrayList<Map>();//Mapが入っている動的配列のリストを作ります。
         desktopComputer.put("storage", map3);//(key=storage,value=map3)をput
         //strageリストの0番目
         Map<String, Object> mapStrage0 = new HashMap<String,Object>();
