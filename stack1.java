@@ -21,15 +21,15 @@ class Stack{
         this.head.next = temp;
     }
 
-    public int pop(){
-        if(this.head == null) return -1;
+    public Integer pop(){
+        if(this.head == null) return null;
         Node temp = this.head;
         this.head = this.head.next;
         return temp.data;
     }
 
-    public int peek(){
-        if(this.head == null) return -1;
+    public Integer peek(){
+        if(this.head == null) return null;
         return this.head.data;
     }
 }
