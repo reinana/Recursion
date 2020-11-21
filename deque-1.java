@@ -40,6 +40,7 @@ class Deque{
         Node node = new Node(data);
         this.head.prev = node;
         node.next = this.head;
+        this.head = node;
     }
 
     public void enqueueBack(int data){
