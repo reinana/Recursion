@@ -148,7 +148,7 @@ class Main{
         ArrayList<Integer> remaining = new ArrayList<>(list);
 
         Random random = new Random();
-        for (int i = 0; i < arr.length; i++) { // 2回繰り返す。
+        for (int i = 0; i < arr.length; i++) { 
             int remainingCount = remaining.size(); // 残っている要素の数
             int index = random.nextInt(remainingCount); // ランダムに選択されたインデックス
        
