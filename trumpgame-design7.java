@@ -69,8 +69,9 @@ class Dealer{
         deck.shuffleDeck();
         ArrayList<ArrayList<Card>> table = new ArrayList<>();
         // プレーヤの手札
-        ArrayList<Card> playerHand = new ArrayList<Card>(2);//ブラックジャックの手札は２枚
-        for (int i = 0; i < amountOfPlayers; i++) {            
+        
+        for (int i = 0; i < amountOfPlayers; i++) {
+            ArrayList<Card> playerHand = new ArrayList<Card>(2);//ブラックジャックの手札は２枚
             for (int j = 0; j < 2; j++) {
                 Card card1 = deck.draw();
                 playerHand.add(card1);
