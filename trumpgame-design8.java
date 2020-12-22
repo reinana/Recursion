@@ -53,8 +53,7 @@ class Deck{
     }
 
     public Card draw(){
-        Card drawOne = this.deck.remove(this.deck.size()-1);
-        return drawOne;
+        return this.deck.remove(this.deck.size()-1);
     }
 } 
 
