@@ -55,27 +55,36 @@ class Deck{
     public Card draw(){
         return this.deck.remove(this.deck.size()-1);
     }
-} 
+}
+class Table{
+    public int amountOfPlayers;
+    public String gameMode;
+
+    public Table(int amountOfPlayers, String gameMode){
+        this.amountOfPlayers = amountOfPlayers;
+        this.gameMode = gameMode;
+    }
+}
 
 class Dealer{
     //gameModeを追加
-    public static ArrayList<ArrayList<Card>> startGame(int amountOfPlayers, String gameMode) {
+    public static ArrayList<ArrayList<Card>> startGame(Table table) {
         
         Deck deck = new Deck();
         deck.shuffleDeck();
-        ArrayList<ArrayList<Card>> table = new ArrayList<>();
+        ArrayList<ArrayList<Card>> playerCards = new ArrayList<>();
         //手札の数を受け取るよう書き換えます
         
-        for (int i = 0; i < amountOfPlayers; i++) {      
-            ArrayList<Card> playerHand = new ArrayList<Card>(initialCards(gameMode));     
-            for (int j = 0; j < initialCards(gameMode); j++) {
+        for (int i = 0; i < table.amountOfPlayers; i++) {      
+            ArrayList<Card> playerHand = new ArrayList<Card>(initialCards(table.gameMode));     
+            for (int j = 0; j < initialCards(table.gameMode); j++) {
                 Card card1 = deck.draw();
                 playerHand.add(card1);
             }
-            table.add(playerHand);
+            playerCards.add(playerHand);
         }
         
-        return table;
+        return playerCards;
     }
 
     // ゲームの内容によって手札を変更します。
@@ -90,22 +99,26 @@ class Main{
         
     public static void main(String[] args){
         System.out.println("ブラックジャック");
-        ArrayList<ArrayList<Card>> table1 = Dealer.startGame(5, "21");
+        Table table1 = new Table(5, "21");
+
+
+        ArrayList<ArrayList<Card>> game1 = Dealer.startGame(table1);
         //プレイヤーの手札を表示
-        for(int i=0;i<table1.size();i++){
+        for(int i=0;i<game1.size();i++){
             System.out.print("Player "+(i+1)+" [");
-            for(int j=0;j<table1.get(i).size();j++){
-                System.out.print(table1.get(i).get(j).getCardString());
+            for(int j=0;j<game1.get(i).size();j++){
+                System.out.print(game1.get(i).get(j).getCardString());
             }
             System.out.println("]");
         }
         System.out.println("ポーカー");
-        ArrayList<ArrayList<Card>> table2 = Dealer.startGame(3, "poker");
+        Table table2 = new Table(3, "poker");
+        ArrayList<ArrayList<Card>> game2 = Dealer.startGame(table2);
         //プレイヤーの手札を表示
-        for(int i=0;i<table2.size();i++){
+        for(int i=0;i<game2.size();i++){
             System.out.print("Player "+(i+1)+" [");
-            for(int j=0;j<table2.get(i).size();j++){
-                System.out.print(table2.get(i).get(j).getCardString());
+            for(int j=0;j<game2.get(i).size();j++){
+                System.out.print(game2.get(i).get(j).getCardString());
             }
             System.out.println("]");
         }
