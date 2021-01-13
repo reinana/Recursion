@@ -14,7 +14,7 @@ interface FlightInterface {
 
 class Flight implements FlightInterface{
     public static final char[] COLUMN = new char[]{'A','B','C','D','E','F'};
-    public static final int ROW = 10;
+    public static final int ROW = 40;
 
     private String flightNumber;
     private String origin;
