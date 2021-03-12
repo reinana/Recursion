@@ -9,6 +9,7 @@ class Card {
     public String suit;
     public String value;
     public int intValue;
+    
     // インスタンス生成のためのコンストラクタ
     public Card(String suit, String value, int intValue) {
         this.suit = suit;
@@ -16,6 +17,8 @@ class Card {
         // intValueは値の大きさになります（例：A=1,K=13）
         this.intValue = intValue;
     }
+    
+    //インスタンス化されたカード情報を返す関数
     public String getCardString(){
         return this.suit + this.value + "(" + this.intValue + ")";
     }
@@ -25,6 +28,8 @@ class Main{
     public static void main(String[] args){
         // 新しくカードを作成し、カード情報を返す関数を使用します
         Card card1 = new Card("♦︎","A",1);
+        
+        //出力して確認
         System.out.println(card1);
         System.out.println(card1.getCardString());
     }
