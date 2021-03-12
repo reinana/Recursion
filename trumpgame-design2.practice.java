@@ -16,6 +16,22 @@ class Card{
     public String getCardString(){
         return this.suit + this.value + "(" + this.intValue + ")";
     }
+    
+    // ここから記述してください。
+
 }
 
-// ここから記述してください。
+class Main{
+        
+    public static void main(String[] args){
+        // 新しくデッキを作成し、コンソール上に出力します
+        Deck deck1 = new Deck();
+        System.out.println(deck1);
+
+        //コンソールで確認
+        // System.out.println(deck1.deck);　参照を返すためコメントアウト
+        System.out.println(deck1.deck.get(3));
+        System.out.println(deck1.deck.get(3).getCardString());
+        
+    }
+}
