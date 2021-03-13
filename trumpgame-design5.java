@@ -1,4 +1,3 @@
-// デッキをシャッフルするshuffleDeckメソッドを作成して、シャッフル前のデッキとシャッフル後のデッキをコンソールに表示してみましょう。
 import java.util.Arrays;
 import java.util.ArrayList;
 
@@ -24,24 +23,23 @@ class Deck{
         this.deck = this.generateDeck();
     }
     public static ArrayList<Card> generateDeck(){
+        ArrayList<Card> newDeck = new ArrayList<>();
         String[] suits = new String[]{"♣", "♦", "♥", "♠"};
         String[] values = new String[]{"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
 
-        ArrayList<Card> newDeckDinamic = new ArrayList<>(52);
-        for(int i=0;i<suits.length;i++){
-            for(int j=0;j<values.length;j++){
-                newDeckDinamic.add(new Card(suits[i], values[j], j+1));
+        for(int i = 0; i < suits.length; i++){
+            for(int j = 0; j < values.length; j++){
+                newDeck.add(new Card(suits[i], values[j], j + 1));
             }
         }
-        return newDeckDinamic;
+        return newDeck;
     }
 
-    public String printDeck(){
+    public void printDeck(){
         System.out.println("Displaying cards...");
-        for (Card card: this.deck) {
-                System.out.println(card.getCardString());
+        for (int i = 0; i < this.deck.size(); i++) {
+                System.out.println(this.deck.get(i).getCardString());
         }
-        return "";
     }
 
     // シャッフルする関数はtwo pointerを活用します。for文で一つ一つのカードをランダムに入れ替える処理を書きましょう。
@@ -51,7 +49,7 @@ class Deck{
             int j = (int)Math.floor(Math.random() * (i + 1));
             Card tmp = this.deck.get(i);
             this.deck.set(i, this.deck.get(j));
-            this.deck.set(j,tmp);
+            this.deck.set(j, tmp);
         }
     }
 }    
@@ -61,7 +59,10 @@ class Main{
     public static void main(String[] args){
 
         Deck deck1 = new Deck();
+        //シャッフル前のデッキ
+        deck1.printDeck();
 
+        //シャッフル後のデッキ
         deck1.shuffleDeck();
         deck1.printDeck();     
     }
