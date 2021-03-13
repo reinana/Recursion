@@ -1,4 +1,3 @@
-
 import java.util.Arrays;
 import java.util.ArrayList;
 
@@ -24,39 +23,38 @@ class Deck{
         this.deck = this.generateDeck();
     }
     public static ArrayList<Card> generateDeck(){
+        ArrayList<Card> newDeck = new ArrayList<>();
         String[] suits = new String[]{"♣", "♦", "♥", "♠"};
         String[] values = new String[]{"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
 
-        ArrayList<Card> newDeckDinamic = new ArrayList<>(52);
-        for(int i=0;i<suits.length;i++){
-            for(int j=0;j<values.length;j++){
-                newDeckDinamic.add(new Card(suits[i], values[j], j+1));
+        for(int i = 0; i < suits.length; i++){
+            for(int j = 0; j < values.length; j++){
+                newDeck.add(new Card(suits[i], values[j], j + 1));
             }
         }
-        return newDeckDinamic;
+        return newDeck;
     }
 
-    public String printDeck(){
+    //カードをドロー
+    public Card draw(){
+        //カードクラスのカードを1枚　deckの一番最後
+        return this.deck.remove(this.deck.size()-1);
+    }
+
+    public void printDeck(){
         System.out.println("Displaying cards...");
-        for (Card card: this.deck) {
-                System.out.println(card.getCardString());
+        for (int i = 0; i < this.deck.size(); i++) {
+                System.out.println(this.deck.get(i).getCardString());
         }
-        return "";
     }
 
     public void shuffleDeck() {
-        for(int i=this.deck.size()-1;i>=0;i--){
+        for(int i = this.deck.size()-1; i >= 0; i--){
             int j = (int)Math.floor(Math.random() * (i + 1));
             Card tmp = this.deck.get(i);
             this.deck.set(i, this.deck.get(j));
-            this.deck.set(j,tmp);
+            this.deck.set(j, tmp);
         }
-    }
-
-    public Card draw(){
-        //カードクラスのカードを1枚　deckの一番最後
-        Card drawOne = this.deck.remove(this.deck.size()-1);
-        return drawOne;
     }
 }    
 
@@ -65,8 +63,12 @@ class Main{
     public static void main(String[] args){
 
         Deck deck1 = new Deck();
+
+        //シャッフル
         deck1.shuffleDeck();
-        
-        System.out.println(deck1.draw().getCardString());      
+
+        //コンソールで確認
+        System.out.println(deck1.deck.get(deck1.deck.size() - 1).getCardString());
+        System.out.println(deck1.draw().getCardString()); 
     }
 }
