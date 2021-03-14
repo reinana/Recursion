@@ -25,6 +25,7 @@ class Deck{
     public Deck(){
         this.deck = this.generateDeck();
     }
+    
     public static ArrayList<Card> generateDeck(){
         ArrayList<Card> newDeck = new ArrayList<>();
         String[] suits = new String[]{"♣", "♦", "♥", "♠"};
