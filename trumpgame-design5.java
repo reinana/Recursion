@@ -40,7 +40,7 @@ class Deck{
     public void printDeck(){
         System.out.println("Displaying cards...");
         for (int i = 0; i < this.deck.size(); i++) {
-                System.out.println(this.deck.get(i).getCardString());
+            System.out.println(this.deck.get(i).getCardString());
         }
     }
 
