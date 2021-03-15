@@ -101,9 +101,10 @@ class Dealer{
 class Main{
         
     public static void main(String[] args){
-
+          
         // 卓の設定　2 players、ポーカー
-        ArrayList<ArrayList<Card>> game1 = Dealer.startGame(new Table(2, "poker"));
+        Table table1 = new Table(2, "poker");
+        ArrayList<ArrayList<Card>> game1 = Dealer.startGame(table1);
 
         // 1人目のプレイヤーの手札をfor文で出力してみます
         for(int i = 0; i < game1.get(0).size();i++){
