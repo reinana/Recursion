@@ -44,8 +44,10 @@ class Deck{
         for(int i = 0; i < suits.length; i++){
             for(int j = 0; j < values.length; j++){
                 if(table.gameMode == "21"){
-                    newDeck.add(new Card(suits[i], values[j], blackJack.get(values[j]) ==null ? j+1 : blackJack.get(values[j])));
-                }                  
+                    newDeck.add(new Card(suits[i], values[j], blackJack.get(values[j]) == null ? j + 1 : blackJack.get(values[j])));
+                }else{
+                    newDeck.add(new Card(suits[i], values[j], j + 1));
+                }                     
             }
         }
         return newDeck;
@@ -122,12 +124,12 @@ class Dealer{
     }
 
     public static int score21Individual(ArrayList<Card> cards) {
-        int total = 0;
+        int value = 0;
         for (int i = 0; i < cards.size(); i++) {
-            total += cards.get(i).intValue;
+            value += cards.get(i).intValue;
         }
-        if (total > 21) total = 0;
-        return total;
+        if (value > 21) value = 0;
+        return value;
     }
 
     public static String winnerOf21(ArrayList<ArrayList<Card>> playerCards) {
