@@ -1,6 +1,5 @@
 import java.util.Arrays;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 class Card{
     public String suit;
@@ -12,52 +11,54 @@ class Card{
         this.value = value;
         this.intValue = intValue;
     }
+
     public String getCardString(){
         return this.suit + this.value + "(" + this.intValue + ")";
     }
 
 }
+
 class Deck{
     public ArrayList<Card> deck;
     
     public Deck(){
         this.deck = this.generateDeck();
     }
+    
     public static ArrayList<Card> generateDeck(){
+        ArrayList<Card> newDeck = new ArrayList<>();
         String[] suits = new String[]{"♣", "♦", "♥", "♠"};
         String[] values = new String[]{"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
 
-        ArrayList<Card> newDeckDinamic = new ArrayList<>();
-        for(int i=0;i<suits.length;i++){
-            for(int j=0;j<values.length;j++){
-                newDeckDinamic.add(new Card(suits[i], values[j], j+1));
+        for(int i = 0; i < suits.length; i++){
+            for(int j = 0; j < values.length; j++){
+                newDeck.add(new Card(suits[i], values[j], j + 1));
             }
         }
-        return newDeckDinamic;
-    }
-
-    public String printDeck(){
-        System.out.println("Displaying cards...");
-        for (Card card: this.deck) {
-                System.out.println(card.getCardString());
-        }
-        return "";
-    }
-
-    public void shuffleDeck() {
-        for(int i=this.deck.size()-1;i>=0;i--){
-            int j = (int)Math.floor(Math.random() * (i + 1));
-            Card tmp = this.deck.get(i);
-            this.deck.set(i, this.deck.get(j));
-            this.deck.set(j,tmp);
-        }
+        return newDeck;
     }
 
     public Card draw(){
-        Card drawOne = this.deck.remove(this.deck.size()-1);
-        return drawOne;
+        return this.deck.remove(this.deck.size()-1);
     }
-} 
+
+    public void printDeck(){
+        System.out.println("Displaying cards...");
+        for (int i = 0; i < this.deck.size(); i++) {
+            System.out.println(this.deck.get(i).getCardString());
+        }
+    }
+
+    public void shuffleDeck() {
+        for(int i = this.deck.size()-1; i >= 0; i--){
+            int j = (int)Math.floor(Math.random() * (i + 1));
+            Card tmp = this.deck.get(i);
+            this.deck.set(i, this.deck.get(j));
+            this.deck.set(j, tmp);
+        }
+    }
+}    
+
 class Table{
     public int amountOfPlayers;
     public String gameMode;
@@ -73,11 +74,12 @@ class Dealer{
         
         Deck deck = new Deck();
         deck.shuffleDeck();
+
         ArrayList<ArrayList<Card>> playerCards = new ArrayList<>();
-        
+ 
         for (int i = 0; i < table.amountOfPlayers; i++) {      
-            ArrayList<Card> playerHand = new ArrayList<Card>(initialCards(table.gameMode));     
-            for (int j = 0; j < initialCards(table.gameMode); j++) {
+            ArrayList<Card> playerHand = new ArrayList<Card>(Dealer.initialCards(table.gameMode));     
+            for (int j = 0; j < Dealer.initialCards(table.gameMode); j++) {
                 Card card1 = deck.draw();
                 playerHand.add(card1);
             }
@@ -94,12 +96,12 @@ class Dealer{
     }
 
     public static void printTableInformation(ArrayList<ArrayList<Card>> playerCards, Table table) {
-        System.out.println("Amount of players: "+ table.amountOfPlayers +"... Game mode: " + table.gameMode + ". At this table: ");
+        System.out.println("Amount of players: " + table.amountOfPlayers +"... Game mode: " + table.gameMode + ". At this table: ");
         
         for (int i = 0; i < playerCards.size(); i++) {
-            System.out.print("Player " + (i + 1) + " hand is: ");             
+            System.out.println("Player " + (i + 1) + " hand is: ");             
             for(int j = 0; j < playerCards.get(i).size(); j++) {
-                System.out.print(playerCards.get(i).get(j).getCardString());
+                System.out.println(playerCards.get(i).get(j).getCardString());
             }
             System.out.println();
         }            
@@ -114,27 +116,32 @@ class Dealer{
         return total;
     }
 
+    // ブラックジャックで誰が勝利したか表示する関数を作成します。
+    // それぞれのプレイヤーの手札をscore21Individualで計算し、配列に保存します。例: [10,16,15,16,15,15]
+    // この場合、勝利するプレイヤーが複数存在することから、cache[10] = 1, cache[15] = 3, cache[16] = 2のように書き換えます。
+    // 配列 [10,16,15,16,15,15]の最大値は16で、cache[16] > 1なのでドローになります。
+    // もし、0 <= cache[16] <= 1なら、そのプレイヤーの勝利、それ以外の場合は勝者が誰もいないことになります。
+    // ではこのロジックを関数にしてみましょう。
     public static String winnerOf21(ArrayList<ArrayList<Card>> playerCards) {
-        //ポイントを計算して配列に
-        int[] points = new int[playerCards.size()];
-        //引き分けがいないかハッシュマップにポイントを入れる　＋１する
 
-        HashMap<Integer, Integer> cache = new HashMap<>();
+        int[] points = new int[playerCards.size()];
+        int[] cache = new int[22];// pointは0-21の範囲
+        
         for (int i = 0; i < playerCards.size(); i++) {
-            int point = score21Individual(playerCards.get(i));
+            int point = Dealer.score21Individual(playerCards.get(i));
             // それぞれのpointを配列に保存
             points[i] = point;
-            System.out.println("Player " + (i+1) + " : " + point);
-
-            if(cache.get(point) == null) cache.put(point,1);
-            else cache.replace(point, cache.get(point)+1);
+            
+            if (cache[point] >= 1) cache[point] += 1;
+            else cache[point] = 1;
         }
+        // 各プレイヤーの得点を確認します。
+        System.out.println(Arrays.toString(points));
 
-        int winnerIndex = HelperFunctions.maxInArrayIndex(points);
-        if (cache.get(points[winnerIndex]) > 1) return "It is a draw ";
-        else if (cache.get(points[winnerIndex]) >= 0) return "player " + (winnerIndex + 1) + " is the winner";
+        int maxInt = HelperFunctions.maxInArrayIndex(points);
+        if (cache[points[maxInt]] > 1) return "It is a draw ";
+        else if (cache[points[maxInt]] >= 0) return "player " + (maxInt + 1) + " is the winner";
         else return "No winners..";
-    
     }  
 }
 
@@ -158,7 +165,7 @@ class Main{
         
     public static void main(String[] args){
 
-        Table table1 = new Table(2,"21");
+        Table table1 = new Table(4,"21");
         ArrayList<ArrayList<Card>> game1 = Dealer.startGame(table1);
         Dealer.printTableInformation(game1, table1);
 
