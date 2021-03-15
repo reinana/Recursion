@@ -110,13 +110,13 @@ class Dealer{
     // 各プレーヤーの手札を受け取って、合計値を計算するscore21Individualメソッドを作成します。
     // ブラックジャックでは値の合計値が21を超えるとNGなのでその場合は0とします。
     public static int score21Individual(ArrayList<Card> cards) {
-        int total = 0;
+        int value = 0;
         for (int i = 0; i < cards.size(); i++) {
-            total += cards.get(i).intValue;
+            value += cards.get(i).intValue;
         }
-        if (total > 21) total = 0;
-        return total;
-    }      
+        if (value > 21) value = 0;
+        return value;
+    }     
 }
 
 class Main{
