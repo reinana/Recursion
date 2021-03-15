@@ -147,38 +147,9 @@ class Dealer{
         }
         System.out.println(Arrays.toString(points));
 
-        int maxInt = HelperFunctions.maxInArrayIndex(points);
-        if (cache[points[maxInt]] > 1) return "It is a draw ";
-        else if (cache[points[maxInt]] >= 0) return "player " + (maxInt + 1) + " is the winner";
+        int winnerIndex = HelperFunctions.maxInArrayIndex(points);
+        if (cache[points[winnerIndex]] > 1) return "It is a draw ";
+        else if (cache[points[winnerIndex]] >= 0) return "player " + (winnerIndex + 1) + " is the winner";
         else return "No winners..";
     }  
-}
-
-class HelperFunctions {
-
-    public static int maxInArrayIndex(int[] intArr) {
-        int maxIndex = 0;
-        int maxValue = intArr[0];
-
-        for (int i = 1; i < intArr.length; i++) {
-            if (intArr[i] > maxValue) {
-                maxValue = intArr[i];
-                maxIndex = i;
-            }
-        }
-        return maxIndex;
-    }
-}
-
-class Main{
-        
-    public static void main(String[] args){
-
-        Table table1 = new Table(4,"21");
-        ArrayList<ArrayList<Card>> game1 = Dealer.startGame(table1);
-        Dealer.printTableInformation(game1, table1);
-
-        System.out.println(Dealer.winnerOf21(game1));
-    }
-
 }
