@@ -108,12 +108,12 @@ class Dealer{
     }
 
     public static int score21Individual(ArrayList<Card> cards) {
-        int total = 0;
+        int value = 0;
         for (int i = 0; i < cards.size(); i++) {
-            total += cards.get(i).intValue;
+            value += cards.get(i).intValue;
         }
-        if (total > 21) total = 0;
-        return total;
+        if (value > 21) value = 0;
+        return value;
     }
 
     // ブラックジャックで誰が勝利したか表示する関数を作成します。
@@ -138,9 +138,9 @@ class Dealer{
         // 各プレイヤーの得点を確認します。
         System.out.println(Arrays.toString(points));
 
-        int maxInt = HelperFunctions.maxInArrayIndex(points);
-        if (cache[points[maxInt]] > 1) return "It is a draw ";
-        else if (cache[points[maxInt]] >= 0) return "player " + (maxInt + 1) + " is the winner";
+        int winnerIndex = HelperFunctions.maxInArrayIndex(points);
+        if (cache[points[winnerIndex]] > 1) return "It is a draw ";
+        else if (cache[points[winnerIndex]] >= 0) return "player " + (winnerIndex + 1) + " is the winner";
         else return "No winners..";
     }  
 }
