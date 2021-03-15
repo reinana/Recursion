@@ -101,9 +101,9 @@ class Dealer{
         System.out.println("Amount of players: " + table.amountOfPlayers +"... Game mode: " + table.gameMode + ". At this table: ");
         
         for (int i = 0; i < playerCards.size(); i++) {
-            System.out.print("Player " + (i + 1) + " hand is: ");             
+            System.out.println("Player " + (i + 1) + " hand is: ");             
             for(int j = 0; j < playerCards.get(i).size(); j++) {
-                System.out.print(playerCards.get(i).get(j).getCardString());
+                System.out.println(playerCards.get(i).get(j).getCardString());
             }
             System.out.println();
         }            
